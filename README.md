@@ -18,7 +18,7 @@ The two parameters are:
 
 The output will look like this:
 
-```
+```html
 <div class="$class">
 	<p>$message</p>
 </div>
@@ -44,3 +44,57 @@ function my_flash_default_class($default_class_name) {
 }
 add_filter('flash_messages_default_class', 'my_flash_default_class');
 ```
+
+#UPDATE 1.1 7th of March 2017#
+
+1. Prevent duplicate messages in same class
+2. Using **$_SESSION** instead of **wp option**
+3. Improved PHPDocs
+
+
+###1. Duplicate issue
+
+In the previous version of *wp-flash-messages* it was possible to add the same message to the same corresponding class.
+The static function *check_flash_message_exists* is used to check if a message already exists in the same class, but won't search the entire array for the value.
+
+
+####Avoidable situation
+
+This is no longer possible, any attempt to add will first check if the previous value is already known
+```php
+Array
+(
+    ['updated'] => Array
+        (
+            [0] => "A basic flash message"
+            [1] => "A basic flash message"
+        )
+)
+```
+
+####However
+This still is possible, due to limited scope of the *check_flash_message_exists*
+```php
+Array
+(
+    ['updated'] => Array
+        (
+            [0] => "A basic flash message"
+        )
+        
+    ['error'] => Array
+        (
+            [0] => "A basic flash message"
+        )
+)
+```
+
+###2. $_SESSION
+$_SESSION is used instead of wp option to get consistency about the outcome
+1. $_SESSION makes the messages only available to the corresponding user.
+2. $_SESSION is faster than wp option.
+3. $_SESSION won't save the messages when the user isn't active.
+
+
+###3. Update PHPDocs
+Updated the functions to give a better description of what they actually do and what parameters they require.
