@@ -28,13 +28,14 @@ class WPFlashMessages {
 	 */
 	public static function queue_flash_message($message, $class = '') {
 
+		$message = sanitize_text_field($message);
+		$class = sanitize_text_field( $class );
+
 		$default_allowed_classes = array('error', 'updated', 'alert-danger');
 		$allowed_classes = apply_filters('flash_messages_allowed_classes', $default_allowed_classes);
 		$default_class = apply_filters('flash_messages_default_class', 'updated');
 
 		if(!in_array($class, $allowed_classes)) $class = $default_class;
-
-		$flash_messages = maybe_unserialize(get_option('wp_flash_messages', array()));
 
 		//If the message with the corresponding class isn't found it will be added to array
 		if(false == self::check_flash_message_exists( $message, $class)) {
@@ -55,6 +56,10 @@ class WPFlashMessages {
 	 * @return bool | false if flash message doesn't exist | true if message exists
 	 */
 	public static function check_flash_message_exists ($message, $class) {
+
+		$message = sanitize_text_field($message);
+		$class = sanitize_text_field( $class );
+
 		if ( isset( $_SESSION['wp_flash_messages'] ) ) {
 			$array = $_SESSION['wp_flash_messages'];
 
