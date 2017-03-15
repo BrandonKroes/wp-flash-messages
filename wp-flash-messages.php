@@ -2,8 +2,8 @@
     Plugin Name: WP Flash Messages
     Plugin URI: http://webpresencepartners.com
     Description: Easily Show Flash Messages in WP Admin UPDATE Using Session i.o get_option and a new function to prevent duplicates
-    Version: 1.1
-    Author: Daniel Grundel, Web Presence Partners
+    Version: 1.2
+    Author: Daniel Grundel, Web Presence Partners, Brandon Kroes
     Author URI: http://webpresencepartners.com
 */
 
@@ -94,6 +94,7 @@ class WPFlashMessages
 
 
     /**
+     * Deleting a user based
      * @param $message
      * @param string $class
      *
@@ -147,7 +148,7 @@ class WPFlashMessages
      */
     public static function check_flash_message_exists($message, $class = '')
     {
-
+        //Message must be filled, class can be empty
         if (empty($message)) {
             throw new \Exception("message is empty");
         }
@@ -158,19 +159,15 @@ class WPFlashMessages
         if (isset($_SESSION['wp_flash_messages'])) {
             $array = $_SESSION['wp_flash_messages'];
 
-
             //Search through all existing classes
-            if (!empty($class)) {
+            if (empty($class)) {
                 foreach ($array as $class) {
                     foreach ($class as $row => $row_message) {
                         if ($row_message == $message) {
                             return true;
                         }
                     }
-                    exit;
-
                 }
-
                 return false;
             }
 
@@ -181,10 +178,8 @@ class WPFlashMessages
                     return true;
                 }
             }
-
             return false;
         }
-
         return false;
     }
 
@@ -232,8 +227,6 @@ class WPFlashMessages
             return true;
         }
         return true;
-
-
     }
 }
 
