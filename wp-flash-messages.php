@@ -55,7 +55,6 @@ class WPFlashMessages
         } else {
             return false;
         }
-
     }
 
     /**
@@ -114,27 +113,22 @@ class WPFlashMessages
         $message = sanitize_text_field($message);
         $class = sanitize_text_field($class);
 
-
         $found = self::find_flash_message_from_queue($message, $class);
 
         //$found = (int)$found;
 
         if (!is_bool($found)) {
             unset($_SESSION['wp_flash_messages'][$class][$found]);
-
             /*
             * Due to the nature of unset, there won't be a return if it succeeded or not hence the double find
              */
             if (is_bool(self::find_flash_message_from_queue($message, $class))) {
                 return false;
             }
-
             return true;
         }
-
         return false;
     }
-
 
     /**
      * Checks if the attempted message already exists in the wp_flash_message array
