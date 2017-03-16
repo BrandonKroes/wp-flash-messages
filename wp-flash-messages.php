@@ -195,7 +195,7 @@ class WPFlashMessages {
 				foreach ( $flash_messages as $class => $messages ) {
 					foreach ( $messages as $message ) {
 						?>
-            <div class="<?php echo $class; ?>"><p><?php echo $message; ?></p></div><?php
+                  <div class="<?= $class; ?>"><p><?= $message; ?></p></div><?php
 					}
 				}
 				//clear flash messages
