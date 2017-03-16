@@ -119,7 +119,7 @@ class WPFlashMessages {
 			throw new \Exception( 'message is empty' );
 		}
 		if ( empty( $class ) ) {
-			throw new \Exception( "class is empty" );
+			throw new \Exception( 'class is empty' );
 		}
 
 		$message = sanitize_text_field( $message );
@@ -157,7 +157,7 @@ class WPFlashMessages {
 			throw new \Exception( 'message is empty' );
 		}
 		if ( empty( $class ) ) {
-			throw new \Exception( "class is empty" );
+			throw new \Exception( 'class is empty' );
 		}
 
 		$message = sanitize_text_field( $message );
@@ -195,13 +195,12 @@ class WPFlashMessages {
 				foreach ( $flash_messages as $class => $messages ) {
 					foreach ( $messages as $message ) {
 						?>
-                    <div class="<?php echo $class; ?>"><p><?php echo $message; ?></p></div><?php
+            <div class="<?php echo $class; ?>"><p><?php echo $message; ?></p></div><?php
 					}
 				}
 				//clear flash messages
 				unset( $_SESSION['wp_flash_messages'] );
 			}
-
 		}
 	}
 
