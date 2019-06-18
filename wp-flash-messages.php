@@ -1,3 +1,4 @@
+
 <?php /*
 	 Plugin Name: WP Flash Messages
 	 Plugin URI: http://webpresencepartners.com
